@@ -1,0 +1,20 @@
+# Angular / Node
+node_modules/
+dist/
+Frontend_DoConnect/node_modules/
+Frontend_DoConnect/dist/
+
+# ASP.NET Core
+bin/
+obj/
+Backend_DoConnect/bin/
+Backend_DoConnect/obj/
+
+# Environment & configs
+.env
+appsettings.Development.json
+*.user
+*.vs/
+
+# Logs
+*.log
