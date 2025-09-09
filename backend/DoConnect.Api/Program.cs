@@ -64,13 +64,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-
-// Allow Angular frontend
+// ✅ Allow Angular frontend (both ports 4000 & 4200)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
-        b => b.WithOrigins("http://localhost:4200") // Angular dev server
+        b => b.WithOrigins("http://localhost:4000", "http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
