@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h3>Ask a Question</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Question Title</label>
+              <input type="text" 
+                     class="form-control" 
+                     id="title"
+                     formControlName="title"
+                     placeholder="What is your question? Be specific."
+                     [class.is-invalid]="submitted && f['title'].errors">
+              <div class="invalid-feedback" *ngIf="submitted && f['title'].errors">
+                <div *ngIf="f['title'].errors['required']">Title is required</div>
+                <div *ngIf="f['title'].errors['minlength']">Title must be at least 10 characters</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="body" class="form-label">Question Details</label>
+              <textarea class="form-control" 
+                        id="body" 
+                        rows="8"
+                        formControlName="body"
+                        placeholder="Provide more details about your question..."
+                        [class.is-invalid]="submitted && f['body'].errors">
+              </textarea>
+              <div class="invalid-feedback" *ngIf="submitted && f['body'].errors">
+                <div *ngIf="f['body'].errors['required']">Question details are required</div>
+                <div *ngIf="f['body'].errors['minlength']">Question details must be at least 20 characters</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="images" class="form-label">Images (optional)</label>
+              <input type="file" 
+                     class="form-control" 
+                     id="images"
+                     multiple 
+                     accept="image/*"
+                     (change)="onFileSelect($event)">
+              <div class="form-text">You can upload multiple images to help explain your question.</div>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="error">
+              {{ error }}
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <!-- ✅ Use cancel() instead of router.navigate -->
+              <button type="button" 
+                      class="btn btn-secondary" 
+                      (click)="cancel()">
+                Cancel
+              </button>
+              <button type="submit" 
+                      class="btn btn-primary" 
+                      [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                Post Question
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<h2>{{ question?.title }}</h2>
+<p>{{ question?.text }}</p>
+
+<h3>Answers</h3>
+<ul>
+  <li *ngFor="let a of answers">{{ a.text }}</li>
+</ul>
+
+<h3>Post an Answer</h3>
+<form [formGroup]="answerForm" (ngSubmit)="submitAnswer()">
+  <textarea formControlName="text" class="form-control"></textarea>
+  <div *ngIf="answerForm.get('text')?.invalid && answerForm.get('text')?.touched" class="text-danger">
+    Answer is required.
+  </div>
+  <button type="submit" [disabled]="answerForm.invalid" class="btn btn-primary mt-2">Submit</button>
+</form>
+
+<hr>
+
+<h3>Upload an Image</h3>
+<form (ngSubmit)="uploadImage()" #imageForm="ngForm">
+  <input type="file" (change)="onFileSelected($event)" required class="form-control mb-2">
+  <button type="submit" class="btn btn-secondary">Upload Image</button>
+</form>

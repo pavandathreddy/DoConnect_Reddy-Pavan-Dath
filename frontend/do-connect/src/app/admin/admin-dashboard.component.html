@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <h2>Admin Dashboard</h2>
+
+  <!-- Navigation Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <a class="nav-link" 
+         [class.active]="activeTab === 'questions'"
+         (click)="setActiveTab('questions')"
+         href="#questions">
+        Pending Questions ({{ pendingQuestions.length }})
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" 
+         [class.active]="activeTab === 'answers'"
+         (click)="setActiveTab('answers')"
+         href="#answers">
+        Pending Answers ({{ pendingAnswers.length }})
+      </a>
+    </li>
+  </ul>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Pending Questions Tab -->
+  <div *ngIf="!loading && activeTab === 'questions'">
+    <div *ngIf="pendingQuestions.length === 0" class="alert alert-info">
+      No pending questions to review.
+    </div>
+
+    <div *ngFor="let question of pendingQuestions" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ question.title }}</h5>
+        <p class="card-text" style="white-space: pre-wrap;">{{ question.body }}</p>
+        
+        <!-- Question Images -->
+        <div *ngIf="question.images && question.images.length > 0" class="mb-3">
+          <strong>Images:</strong>
+          <div class="row mt-2">
+            <div *ngFor="let image of question.images" class="col-md-2 mb-2">
+              <img [src]="image.filePath" [alt]="image.fileName" class="img-thumbnail">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <small class="text-muted">
+            Asked by {{ question.user?.username }} on {{ question.createdAt | date:'medium' }}
+          </small>
+          <span class="badge bg-warning">{{ question.status }}</span>
+        </div>
+
+        <div class="btn-group" role="group">
+          <button type="button" 
+                  class="btn btn-success" 
+                  (click)="approveQuestion(question.questionId)">
+            Approve
+          </button>
+          <button type="button" 
+                  class="btn btn-warning" 
+                  (click)="rejectQuestion(question.questionId)">
+            Reject
+          </button>
+          <button type="button" 
+                  class="btn btn-danger" 
+                  (click)="deleteQuestion(question.questionId)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Answers Tab -->
+  <div *ngIf="!loading && activeTab === 'answers'">
+    <div *ngIf="pendingAnswers.length === 0" class="alert alert-info">
+      No pending answers to review.
+    </div>
+
+    <div *ngFor="let answer of pendingAnswers" class="card mb-3">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">
+          Answer for Question ID: {{ answer.questionId }}
+        </h6>
+        <p class="card-text" style="white-space: pre-wrap;">{{ answer.body }}</p>
+        
+        <!-- Answer Images -->
+        <div *ngIf="answer.images && answer.images.length > 0" class="mb-3">
+          <strong>Images:</strong>
+          <div class="row mt-2">
+            <div *ngFor="let image of answer.images" class="col-md-2 mb-2">
+              <img [src]="image.filePath" [alt]="image.fileName" class="img-thumbnail">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <small class="text-muted">
+            Answered by {{ answer.user?.username }} on {{ answer.createdAt | date:'medium' }}
+          </small>
+          <span class="badge bg-warning">{{ answer.status }}</span>
+        </div>
+
+        <div class="btn-group" role="group">
+          <button type="button" 
+                  class="btn btn-success" 
+                  (click)="approveAnswer(answer.answerId)">
+            Approve
+          </button>
+          <button type="button" 
+                  class="btn btn-warning" 
+                  (click)="rejectAnswer(answer.answerId)">
+            Reject
+          </button>
+          <button type="button" 
+                  class="btn btn-danger" 
+                  (click)="deleteAnswer(answer.answerId)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

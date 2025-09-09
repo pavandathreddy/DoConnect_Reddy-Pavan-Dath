@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.auth-container {
+  text-align: center;
+  background: #fff;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+h1 { margin-bottom: 1rem; font-size: 2rem; color: #333; }
+p { margin-bottom: 2rem; color: #666; }
+
+.auth-buttons { display: flex; justify-content: center; gap: 1rem; }
+.pill {
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.pill:hover { background: #303f9f; }

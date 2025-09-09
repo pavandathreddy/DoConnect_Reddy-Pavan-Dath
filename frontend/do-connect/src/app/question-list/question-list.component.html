@@ -1,0 +1,7 @@
+<h2>Questions</h2>
+<ul>
+  <li *ngFor="let q of questions">
+    <a (click)="viewDetail(q.questionId)">{{ q.title }}</a>
+  </li>
+</ul>
+<a routerLink="/login">Login</a> | <a routerLink="/register">Register</a>
